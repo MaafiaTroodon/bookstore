@@ -24,6 +24,7 @@ import ca.dal.cs.csci3130.a4.discount.DiscountManager;
 import ca.dal.cs.csci3130.a4.discount.IWallet;
 import ca.dal.cs.csci3130.a4.discount.Membership;
 import ca.dal.cs.csci3130.a4.discount.StudentSRP;
+import ca.dal.cs.csci3130.a4.payment.PaymentManager;
 import ca.dal.cs.csci3130.a4.util.NumberUtility;
 
 public class LandingActivity extends AppCompatActivity {
@@ -84,8 +85,10 @@ public class LandingActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(AppConstants.DAL_CARD, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(AppConstants.DAL_CARD_BALANCE, (float) depositBalance);
+        editor.putFloat("SMART_PAY_BALANCE", (float) depositBalance); // <-- added
         editor.apply();
     }
+
 
     protected void storeLoyaltyPoints(int loyaltyPoints) {
         SharedPreferences sharedPreferences = getSharedPreferences(AppConstants.DAL_CARD, MODE_PRIVATE);
@@ -100,9 +103,20 @@ public class LandingActivity extends AppCompatActivity {
             double deposit = getDeposit();
             storeBalance2SharedPref(deposit);
             storeLoyaltyPoints(AppConstants.INITIAL_LOYALTY_POINTS);
+
+
+            String paymentType = AppConstants.SMART_PAY;
+            double googleCredit = AppConstants.GOOGLE_CREDIT;
+            PaymentManager.getInstance(deposit, googleCredit, paymentType);
+
             move2Dashboard();
+            PaymentManager.reset(); // <- ADD THIS
+            PaymentManager.getInstance(deposit, googleCredit, paymentType);
+
         });
     }
+
+
 
     protected void move2Dashboard() {
         Intent dbIntent = new Intent(this, DashboardActivity.class);

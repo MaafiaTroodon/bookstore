@@ -9,7 +9,6 @@ public class SmartPayAdapter implements IDalCard {
 
     @Override
     public boolean pay(PaymentType paymentType, double amount) {
-        //buggy method, fix the bug!
-        return false;
+        return this.googlePay.pay(amount); // Adapter translates DalCard pay call to GooglePay
     }
 }

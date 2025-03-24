@@ -1,48 +1,87 @@
 package ca.dal.cs.csci3130.a4.payment;
 
+import android.util.Log;
+
 import ca.dal.cs.csci3130.a4.core.AppConstants;
 
 public class PaymentManager {
     double dalBalance;
     double googleCredit;
-    String paymentType;
+    public String paymentType;
+    private SmartPay smartPay;
+    private IGooglePay googlePay;
+    private static PaymentManager instance;
+
 
     public PaymentManager(double dalBalance, double googleCredit, String paymentType) {
         this.dalBalance = dalBalance;
         this.googleCredit = googleCredit;
         this.paymentType = paymentType;
+
+        // Fix: only set SmartPay balance if SMART_PAY is selected
+        if (paymentType.equals(AppConstants.SMART_PAY)) {
+            SmartPayAdapter adapter = new SmartPayAdapter(getGooglePay());
+            smartPay = new SmartPay(adapter);
+            smartPay.setDalBalance(dalBalance); // Here, dalBalance is actually smartPayBalance
+        }
     }
 
-    protected IDalCard getDalCard() {
+    public static PaymentManager getInstance(double dalBalance, double googleCredit, String paymentType) {
+        if (instance == null) {
+            instance = new PaymentManager(dalBalance, googleCredit, paymentType);
+        }
+        return instance;
+    }
+
+    public static void reset() {
+        instance = null;
+    }
+
+    public IDalCard getDalCard() {
         SmartPay dalCard = new SmartPay(null);
         dalCard.setDalBalance(this.dalBalance);
         return dalCard;
     }
 
     protected double getDalBalance() {
-        //buggy method, fix the bug!
-        return 0;
+        return this.dalBalance;
     }
 
-    protected IGooglePay getGooglePay() {
-        IGooglePay googlePay = new GooglePay(this.googleCredit);
+    public IGooglePay getGooglePay() {
+        if (googlePay == null) {
+            googlePay = new GooglePay(this.googleCredit);
+        }
         return googlePay;
     }
 
+
     protected double getGoogleCredit() {
-        IGooglePay googlePay = getGooglePay();
-        return googlePay.getCurrentBalance();
+        return getGooglePay().getCurrentBalance();
     }
 
-    protected SmartPay getSmartPay() {
-        //buggy method, fix the bug!
-        return null;
+    public SmartPay getSmartPay() {
+        if (smartPay == null) {
+            SmartPayAdapter adapter = new SmartPayAdapter(getGooglePay());
+            smartPay = new SmartPay(adapter);
+            smartPay.setDalBalance(this.dalBalance);
+        }
+        return smartPay;
     }
+
+
 
     protected double getSmartPayBalance() {
-        //buggy method, fix the bug!
+        SmartPay smartPay = getSmartPay();
+        if (this.paymentType.equals(AppConstants.DAL_CARD)) {
+            return smartPay.getDalBalance();
+        } else if (this.paymentType.equals(AppConstants.GOOGLE_PAY)) {
+            return smartPay.adapter.googlePay.getCurrentBalance();
+        } else if (this.paymentType.equals(AppConstants.SMART_PAY)) {
+            return smartPay.getDalBalance();
+        }
         return 0;
     }
+
 
     public double getCurrentBalance() {
         if (this.paymentType.equals(AppConstants.DAL_CARD)) {
@@ -54,5 +93,4 @@ public class PaymentManager {
         }
         return 0;
     }
-
 }

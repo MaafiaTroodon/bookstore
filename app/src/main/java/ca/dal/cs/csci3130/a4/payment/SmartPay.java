@@ -17,14 +17,25 @@ public class SmartPay implements IDalCard {
         return this.balance;
     }
 
-    @Override
     public boolean pay(PaymentType paymentType, double amount) {
-        //buggy method, fix the bug!
-        return false;
+        boolean success = false;
+
+        if (paymentType == PaymentType.DalPayment) {
+            if (amount <= this.balance) {
+                this.balance -= amount;
+                this.paidAmount += amount;  // += instead of =
+                success = true;
+            }
+        } else if (paymentType == PaymentType.GooglePayment) {
+            success = adapter != null && adapter.pay(paymentType, amount);
+            if (success) this.paidAmount += amount; // += instead of =
+        }
+
+        return success;
     }
+
 
     public double getPaidAmount() {
         return this.paidAmount;
     }
-
 }
