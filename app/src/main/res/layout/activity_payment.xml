@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.PaymentActivity">
+
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Payment Manager"
+        android:textSize="24dp"></TextView>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="$0"
+        android:textSize="16dp"
+        android:id="@+id/productPriceLabel"></TextView>
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/paymentSpinner"></Spinner>
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:id="@+id/currentBalance"></TextView>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Show Balance"
+        android:textSize="16dp"
+        android:id="@+id/showBalanceButton"></Button>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:textSize="16dp"
+        android:text="Pay Now"
+        android:id="@+id/payNowButton"></Button>
+
+
+
+
+</LinearLayout>

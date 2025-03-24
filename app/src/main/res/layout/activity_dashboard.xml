@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.DashboardActivity">
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Dal Dashboard"
+        android:textSize="24dp"></TextView>
+
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Go Shopping"
+        android:id="@+id/shoppingButton"
+        android:textSize="16dp"></Button>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Manage Loyalty"
+        android:id="@+id/loyaltyButton"
+        android:textSize="16dp"></Button>
+
+</LinearLayout>
