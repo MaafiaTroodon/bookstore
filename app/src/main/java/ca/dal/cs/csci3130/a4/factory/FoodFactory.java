@@ -5,7 +5,13 @@ import ca.dal.cs.csci3130.a4.core.AppConstants;
 public class FoodFactory implements ItemFactory {
     @Override
     public Item getItem(String itemType) {
-        //buggy method, fix the bug!
+        if (itemType.equals(AppConstants.CHICKEN_BURGER)) {
+            return new Burger();
+        } else if (itemType.equals(AppConstants.CLASSIC_POUTINE)) {
+            return new Poutine();
+        } else if (itemType.equals(AppConstants.CHEESE_PIZZA)) {
+            return new Pizza();
+        }
         return null;
     }
 }

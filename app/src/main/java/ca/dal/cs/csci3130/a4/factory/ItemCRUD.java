@@ -19,8 +19,13 @@ public class ItemCRUD {
     }
 
     protected void loadBooks() {
-        //Incomplete method, add the feature!
+        ItemFactory factory = ItemFactoryProducer.getFactory(true);
+        Item daVinci = factory.getItem(AppConstants.DA_VINCI_CODE);
+        this.items.add(daVinci);
+        Item sherlock = factory.getItem(AppConstants.SHERLOCK_HOLMES);
+        this.items.add(sherlock);
     }
+
 
     protected void loadFood() {
         ItemFactory factory = ItemFactoryProducer.getFactory(false);
@@ -33,9 +38,15 @@ public class ItemCRUD {
     }
 
     public ArrayList<Item> collectRetrievedItems(String category) {
-        //buggy method, fix the bug!
-        return null;
+        ArrayList<Item> results = new ArrayList<>();
+        for (Item item : this.items) {
+            if (item.getCategory().equals(category)) {
+                results.add(item);
+            }
+        }
+        return results;
     }
+
 
     public ArrayList<String> collectItemHeaders() {
         ArrayList<String> headers = new ArrayList<>();

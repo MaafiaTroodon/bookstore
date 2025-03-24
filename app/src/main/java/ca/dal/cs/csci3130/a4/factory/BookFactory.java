@@ -6,7 +6,11 @@ public class BookFactory implements ItemFactory {
 
     @Override
     public Item getItem(String itemType) {
-        //buggy method, fix the bug!
+        if (itemType.equals(AppConstants.DA_VINCI_CODE)) {
+            return new DaVinciCode();
+        } else if (itemType.equals(AppConstants.SHERLOCK_HOLMES)) {
+            return new SherlockHolmes();
+        }
         return null;
     }
 }
