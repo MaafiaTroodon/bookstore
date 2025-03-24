@@ -5,6 +5,7 @@ public class StudentSRP implements IStudent {
     String firstName;
     String lastName;
     IWallet wallet;
+    Membership membership; // Added
 
     public StudentSRP(String firstName, String lastName) {
         this.firstName = firstName;
@@ -22,12 +23,11 @@ public class StudentSRP implements IStudent {
     }
 
     public void setMembership(Membership membership) {
-        //Incomplete method, add the feature!
+        this.membership = membership;
     }
 
     @Override
     public double calculateDiscount() {
-        //buggy method, fix the bug!
-        return 0;
+        return this.membership.getRule().calculate(this);
     }
 }

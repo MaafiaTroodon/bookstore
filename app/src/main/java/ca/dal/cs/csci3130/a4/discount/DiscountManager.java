@@ -22,8 +22,8 @@ public class DiscountManager {
     }
 
     protected DiscountCalculationRule getDiscountCalculationRule() {
-        //buggy method, fix the bug!
-        return null;
+        double rate = getDiscountRate(this.membershipType);
+        return new DiscountCalculator(rate);
     }
 
     protected Membership getMembership(DiscountCalculationRule rule) {
@@ -35,7 +35,9 @@ public class DiscountManager {
     }
 
     public double calculateDiscount() {
-        //buggy code, fix the bug!
-        return 0;
+        StudentSRP student = new StudentSRP("First", "Last");
+        student.setWallet(getDalWallet());
+        student.setMembership(getMembership(getDiscountCalculationRule()));
+        return student.calculateDiscount();
     }
 }

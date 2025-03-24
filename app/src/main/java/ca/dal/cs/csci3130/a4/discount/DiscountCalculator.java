@@ -10,7 +10,6 @@ public class DiscountCalculator implements DiscountCalculationRule {
 
     @Override
     public double calculate(StudentSRP student) {
-        //buggy code, fix the bug!
-        return 0;
+        return student.getWallet().getBalance() * discountRate;
     }
 }
