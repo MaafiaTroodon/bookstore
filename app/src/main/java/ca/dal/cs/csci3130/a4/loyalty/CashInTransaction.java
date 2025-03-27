@@ -8,11 +8,14 @@ public class CashInTransaction implements Transaction {
         this.point2Cash = point2Cash;
     }
 
+    @Override
     public boolean performTransaction(ILoyaltyCard card) {
-        //buggy method, fix the bug!
-        return false;
+        if (isLowPoints(card.getCurrentPoints()) || point2Cash > card.getCurrentPoints()) {
+            return false;
+        }
+        card.setCurrentPoints(card.getCurrentPoints() - point2Cash);
+        return true;
     }
-
     public boolean isLowPoints(int currentPoints) {
         return currentPoints < MINIMUM_POINTS;
     }

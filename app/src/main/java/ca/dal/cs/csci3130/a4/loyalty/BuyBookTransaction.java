@@ -12,8 +12,11 @@ public class BuyBookTransaction implements Transaction {
 
     @Override
     public boolean performTransaction(ILoyaltyCard card) {
-        //buggy method, fix the bug!
-        return false;
+        if (isLowPoints(card.getCurrentPoints()) || points2Buy > card.getCurrentPoints()) {
+            return false;
+        }
+        card.setCurrentPoints(card.getCurrentPoints() - points2Buy);
+        return true;
     }
 
     public boolean isLowPoints(int currentPoints) {

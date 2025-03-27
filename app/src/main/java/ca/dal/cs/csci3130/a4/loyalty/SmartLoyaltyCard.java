@@ -8,9 +8,9 @@ public class SmartLoyaltyCard implements ILoyaltyCard {
         this.currentPoints = points;
     }
 
+    @Override
     public boolean performTransaction(Transaction transaction) {
-        //buggy code, fix the bug!
-        return false;
+        return transaction.performTransaction(this);
     }
 
     public int getCurrentPoints() {
