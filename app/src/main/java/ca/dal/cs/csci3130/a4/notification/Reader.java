@@ -5,8 +5,10 @@ public class Reader extends IReader {
     String notification;
 
     public Reader(BookCollector collector) {
-        //Incomplete constructor, add necessary logic
+        this.collector = collector;
+        this.collector.attach(this); // Attach this reader to the collector
     }
+
 
     @Override
     public void notifyMe(String newBookTitle) {

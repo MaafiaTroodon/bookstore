@@ -42,10 +42,14 @@ public class BookCollector {
     }
 
     public void attach(IReader reader) {
-        //Incomplete method, add the feature!
+        this.observers.add(reader);
     }
 
+
     private void notifyAllReaders(String message) {
-        //Incomplete method, add the feature!
+        for (IReader reader : observers) {
+            reader.notifyMe(message);
+        }
     }
+
 }
